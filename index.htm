@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enactus Recruitment</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    h1 {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Bubble with button above the man */
+    .bubble {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      width: 280px;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      opacity: 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border: 20px solid transparent;
+      border-top-color: white;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      background: #000;
+      color: #ffcc00;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ffcc00;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    /* Thinking man below the bubble */
+    #man {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Decorative triangles */
+    .triangle {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 70px solid #ffcc00;
+      opacity: 0.8;
+    }
+
+    /* Small glowing particles */
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      box-shadow: 0 0 10px white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Join Enactus ISET Djerba</h1>
+
+  <!-- Bubble with button -->
+  <div class="bubble" id="bubble">
+    <button class="btn" id="goBtn">Let's Go</button>
+  </div>
+
+  <!-- Thinking man -->
+  <div id="man"></div>
+
+  <!-- Decorative triangles -->
+  <div class="triangle" style="top:100px; left:50px;"></div>
+  <div class="triangle" style="top:200px; right:70px; transform:rotate(30deg);"></div>
+  <div class="triangle" style="bottom:100px; left:150px; transform:rotate(-20deg);"></div>
+
+  <!-- Particles -->
+  <div class="particle" style="top:50px; left:80%;"></div>
+  <div class="particle" style="top:150px; left:30%;"></div>
+  <div class="particle" style="top:300px; left:60%;"></div>
+  <div class="particle" style="top:500px; left:20%;"></div>
+
+  <script>
+    // Thinking man animation
+    lottie.loadAnimation({
+      container: document.getElementById('man'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: "https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json"
+    });
+
+    const bubble = document.getElementById("bubble");
+    const btn = document.getElementById("goBtn");
+
+    // Show bubble smoothly
+    window.onload = () => {
+      gsap.to(bubble, {opacity: 1, scale: 1, duration: 1, ease: "back.out(1.7)"});
+    };
+
+    // Button click → Google Form
+    btn.addEventListener("click", () => {
+      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSf8a9682s1LeuygjclNTC06sUnQjaKbEesHtOXltU5FinH8RA/viewform?usp=dialog"; // Replace with your form
+    });
+
+    // Animate triangles
+    gsap.to(".triangle", {
+      y: -30,
+      duration: 3,
+      yoyo: true,
+      repeat: -1,
+      ease: "sine.inOut",
+      stagger: 0.5
+    });
+
+    // Animate particles
+    gsap.to(".particle", {
+      y: -50,
+      opacity: 0,
+      duration: 4,
+      repeat: -1,
+      stagger: 1,
+      ease: "sine.out",
+      onRepeat: function() {
+        this.targets()[0].style.top = (Math.random() * window.innerHeight) + "px";
+        this.targets()[0].style.left = (Math.random() * window.innerWidth) + "px";
+        this.targets()[0].style.opacity = 0.7;
+      }
+    });
+  </script>
+</body>
+</html>
